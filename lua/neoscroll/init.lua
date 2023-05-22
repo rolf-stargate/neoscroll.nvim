@@ -121,6 +121,21 @@ local function who_scrolls(data, move_cursor, direction)
 	else
 		scroll_cursor = false
 	end
+	-- keep cursor in the middle of the screen
+	if scroll_window then
+		if data.first_line_visible then
+			if data.win_lines_above_cursor < half_window then
+				scroll_cursor = true
+				scroll_window = false
+			end
+		end
+		if data.last_line_visible then
+			if data.win_lines_below_cursor < half_window then
+				scroll_cursor = true
+				scroll_window = false
+			end
+		end
+	end
 	return scroll_window, scroll_cursor
 end
 
